@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h1>Probando converters</h1>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Escribir la edad"/>
+                <h:inputText value="#{formBean.edad}">
+                    <f:converter converterId="javax.faces.Integer"/>
+                </h:inputText>
+                <h:outputLabel value="Fecha registro:"/>
+                <h:inputText value="#{formBean.fechaRegistro}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                </h:inputText>
+                <h:outputLabel value="Fecha convertida"/>
+                <h:outputText value="#{formBean.fechaRegistro}">
+                    <f:convertDateTime dateStyle="full" locale="es"/>
+                </h:outputText>
+                <h:outputLabel value="Precio total"/>
+                <h:outputText value="#{formBean.precioTotal}">
+                    <f:convertNumber currencyCode="USD" type="currency"/>
+                </h:outputText>
+                <h:outputLabel value="Escribe tu nombre:"/>
+                <h:inputText value="#{formBean.nombre}" required="true">
+                    <f:valueChangeListener type="com.asw.jsf.listeners.CambiaNombreChangeListener" />
+                </h:inputText>
+                <h:outputLabel value="Cantidad" for="cantidad"/>
+                <h:inputText id="cantidad" size="4" value="#{formBean.cantidad}">
+                    <f:validateLongRange minimum="1" maximum="10"/>
+                </h:inputText>
+                <h:outputLabel value="Correo electrónico" for="email"/>
+                <h:panelGroup>
+                    <h:inputText id="email" value="#{formBean.email}">
+                        <f:validateRegex  pattern="[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}"/>
+                    </h:inputText>
+                    <h:message for="email" errorStyle="color:red"  />
+                </h:panelGroup>
+            </h:panelGrid>
+            <h:commandButton value="Entrar"/>
+        </h:form>
+    </h:body>
+</html>
+

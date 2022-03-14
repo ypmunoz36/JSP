@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface componentType="SelectProduct">
+        <cc:attribute name="productCode" required="true"/>
+        <cc:attribute name="product" rendered="true"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:panelGrid columns="2" captionClass="alignRight,alignLeft">
+            <h:outputLabel value="Product code" for="productCode" />
+            <h:selectOneMenu value="#{cc.attrs.productCode}" id="productCode">
+                <f:selectItems value="#{cc.allProductCodes }"
+                               var="prodCod"
+                               itemLabel="#{prodCod.description}"
+                               itemValue="#{prodCod.prodCode}"/>
+                <f:ajax render="product" />
+            </h:selectOneMenu>
+ 
+            <h:outputLabel value="Product" for="product" />
+            <h:selectOneMenu  id="product" value="#{cc.attrs.product}" >
+                <f:selectItems value="#{cc.products}"
+                               var="prod"
+                               itemLabel="#{prod.description}"
+                               itemValue="#{prod.productId}"/>
+            </h:selectOneMenu>
+ 
+        </h:panelGrid>
+    </cc:implementation>
+</html>
